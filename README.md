@@ -57,7 +57,7 @@ O projeto "Gestão Acadêmica Ada Tech" é um sistema de gerenciamento acadêmic
 ```shell
 # 1. Clone o projeto
 
-git clone https://github.com/christianebs/js-api-dindin/
+git clone https://github.com/christianebs/projeto-poo-grupo-2/
 
 # 2. Instale as dependências
 
