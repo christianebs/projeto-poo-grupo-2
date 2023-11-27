@@ -1,4 +1,3 @@
-import test from "node:test";
 import { database } from "..";
 import { Student } from "../models/Student";
 import { input, inputNumber } from "../utils/prompt";
@@ -18,8 +17,26 @@ export class StudentController extends CoreController {
     console.log(`\n------------- NOVO ESTUDANTE -------------\n`);
 
     try {
-      const name = input("Nome: ");
-      const age = Number(input("Idade: "));
+      let name = "";
+      let age: number | null = null;
+
+      while (name.trim() === "") {
+        name = input("Nome: ");
+        if (name.trim() === "") {
+          console.log("Por favor, insira um nome para continuar.");
+        }
+      }
+
+      while (isNaN(age as number) || age === null || age <= 0) {
+        const ageInput = input("Idade: ");
+        age = Number(ageInput);
+
+        if (isNaN(age as number) || age <= 0) {
+          console.log("Por favor, insira a idade para continuar.");
+        }
+      }
+
+      age = Math.floor(age);
 
       const student = new Student(name, age, ++StudentController.lastStudentId);
 
@@ -96,11 +113,10 @@ export class StudentController extends CoreController {
   }
 
   atualizar(): void {
+    console.clear();
+    console.log(`\n------------- ATUALIZAR ESTUDANTE -------------\n`);
+
     try {
-      console.clear();
-      console.log(`\n------------- ATUALIZAR ESTUDANTE -------------\n`);
-
-
       if (database.students.length > 0) {
         database.students.forEach((student) =>
           console.log(`${student.id}.................. ${student.name}`)
@@ -112,17 +128,31 @@ export class StudentController extends CoreController {
         const studentIndex = database.students.findIndex((student) => student.id === studentId);
 
         if (studentIndex >= 0) {
-          const name = input("Nome: ");
-          const age = Number(input("Idade: "));
+          let name: string = "";
+          let age: number = 0;
 
-          const student = new Student(
+          while (!name || !name.trim()) {
+            name = input("Nome: ");
+            if (!name.trim()) {
+              console.log("Por favor, insira um nome válido para o aluno.");
+            }
+          }
+
+          while (isNaN(age) || age <= 0) {
+            age = Number(input("Idade: "));
+            if (isNaN(age) || age <= 0) {
+              console.log("Por favor, insira uma idade válida para o aluno.");
+            }
+          }
+
+          const updatedStudent = new Student(
             name,
             age,
             database.students[studentIndex].id,
             database.students[studentIndex].course
           );
 
-          database.students[studentIndex] = student;
+          database.students[studentIndex] = updatedStudent;
 
           console.log("Estudante atualizado com sucesso!\n");
           input("Pressione ENTER para continuar...");
