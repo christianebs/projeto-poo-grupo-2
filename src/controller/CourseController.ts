@@ -31,6 +31,7 @@ export class CourseController extends CoreController {
         }
       } while(!shift.trim());
 
+      const course = new Course(name, shift);
       database.courses.push(course);
 
       console.log("Curso adicionado com sucesso!\n");
