@@ -39,19 +39,6 @@ O projeto "Gestão Acadêmica Ada Tech" é um sistema de gerenciamento acadêmic
     - [x] Remover Curso
     - [x] Atualizar Curso
 
-- [x] **Associação de Alunos a Cursos**
-    - [x] Vincular Aluno a um Curso Existente
-
-- [x] **Exibição de Dados**
-    - [x] Mostrar Dados do Aluno com Informações do Curso e Disciplinas
-
-- [x] **Validações**
-    - [x] Validar Entradas de Dados para Garantir Integridade
-
-- [x] **Relatórios e Consultas**
-    - [x] Obter Extrato Acadêmico do Aluno (Transcrição)
-    - [x] Filtrar Alunos por Curso
-
 ## :computer: Rodando o Projeto
 
 ```shell
