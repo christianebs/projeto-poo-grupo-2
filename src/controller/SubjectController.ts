@@ -13,10 +13,49 @@ export class SubjectController extends CoreController {
     console.clear();
     console.log(`\n------------- NOVA DISCIPLINA -------------\n`);
     try {
-      const name = input("Nome: ");
-      const workload = input("Carga horária: ");
-      const grade = Number(input("Nota: "));
-      const course = Number(input("Digite o ID do curso que a disciplina pertence: "));
+      let name: string;
+
+      do{
+        name = input("Nome: ");
+        if(!name.trim()){
+          console.log("Por favor, informe um valor válido para o nome.");
+        }
+      } while(!name.trim());
+
+      let workload: string;
+
+      do{
+        workload = input("Carga horária: ");
+        if(!workload.trim()){
+          console.log("Por favor, informe um valor válido para a carga horária.");
+        }
+      } while(!workload.trim());
+
+      let grade: number = -1;
+        while (isNaN(grade) || grade < 0) {
+            const gradeInput = input("Nota: ").trim();
+            if (!gradeInput) {
+                console.log("Por favor, informe um valor válido para a nota.");
+            } else {
+                grade = Number(gradeInput);
+                if (isNaN(grade) || grade < 0) {
+                    console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para a nota.");
+                }
+            }
+        }
+
+        let course: number = -1;
+        while (isNaN(course) || course < 0) {
+            const courseInput = input("Digite o ID do curso que a disciplina pertence: ").trim();
+            if (!courseInput) {
+                console.log("Por favor, informe um valor válido para o ID do curso.");
+            } else {
+                course = Number(courseInput);
+                if (isNaN(course) || course < 0) {
+                    console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso.");
+                }
+            }
+        }
 
       const subject = new Subject(name, workload, grade, course);
 
@@ -110,10 +149,49 @@ export class SubjectController extends CoreController {
         );
 
         if (subjectIndex >= 0) {
-          const name = input("Nome: ");
-          const workload = input("Carga horária: ");
-          const grade = Number(input("Nota: "));
-          const course = Number(input("Digite o curso que a disciplina pertence: "));
+          let name: string;
+
+          do{
+            name = input("Nome: ");
+            if(!name.trim()){
+              console.log("Por favor, informe um valor válido para o nome.");
+            }
+          } while(!name.trim());
+
+          let workload: string;
+
+          do{
+            workload = input("Carga horária: ");
+            if(!workload.trim()){
+              console.log("Por favor, informe um valor válido para a carga horária.");
+            }
+          } while(!workload.trim());
+
+          let grade: number = -1;
+            while (isNaN(grade) || grade < 0) {
+                const gradeInput = input("Nota: ").trim();
+                if (!gradeInput) {
+                    console.log("Por favor, informe um valor válido para a nota.");
+                } else {
+                    grade = Number(gradeInput);
+                    if (isNaN(grade) || grade < 0) {
+                        console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para a nota.");
+                    }
+                }
+            }
+
+            let course: number = -1;
+            while (isNaN(course) || course < 0) {
+                const courseInput = input("Digite o ID do curso que a disciplina pertence: ").trim();
+                if (!courseInput) {
+                    console.log("Por favor, informe um valor válido para o ID do curso.");
+                } else {
+                    course = Number(courseInput);
+                    if (isNaN(course) || course < 0) {
+                        console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso.");
+                    }
+                }
+            }
 
           const subject = new Subject(
             name,
