@@ -1,0 +1,24 @@
+{
+  "name": "sistema-gestao-academica",
+  "version": "1.0.0",
+  "description": "Um sistema de gerenciamento acadêmico orientado a objetos desenvolvido em TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts",
+    "compile": "tsc -w",
+    "start:dev": "nodemon ./dist/index.js"
+  },
+  "author": "Bruno Lopes, Christiane Barbosa, João Marcos, Marília Pinheiro Alves, Patrick Farias",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/prompt-sync": "^4.2.3",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
