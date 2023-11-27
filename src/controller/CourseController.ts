@@ -14,10 +14,22 @@ export class CourseController extends CoreController {
 
     try {
 
-      const name = input("Nome: ");
-      const shift = input("Turno: ");
+      let name: string;
+      let shift: string;
 
-      const course = new Course(name, shift);
+      do{
+        name = input("Nome: ");
+        if(!name.trim()){
+          console.log("Por favor, forneça um nome válido para o curso.");
+        }
+      } while(!name.trim());
+
+      do{
+        shift = input("Turno: ");
+        if(!shift.trim()){
+          console.log("Por favor, forneça um nome válido para o turno.");
+        }
+      } while(!shift.trim());
 
       database.courses.push(course);
 
@@ -121,8 +133,22 @@ export class CourseController extends CoreController {
       );
 
       if (courseIndex >= 0) {
-        const name = input("Nome: ");
-        const shift = input("Turno: ");
+        let name: string;
+        let shift: string;
+
+        do{
+          name = input("Nome: ");
+          if(!name.trim()){
+            console.log("Por favor, forneça um nome válido para o curso.");
+          }
+        } while(!name.trim());
+
+        do{
+          shift = input("Turno: ");
+          if(!shift.trim()){
+            console.log("Por favor, forneça um nome válido para o turno.");
+          }
+        } while(!shift.trim());
 
         const course = new Course(
           name,
