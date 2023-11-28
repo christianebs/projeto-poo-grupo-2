@@ -201,7 +201,7 @@ export class SubjectController extends CoreController {
           console.log('ID inválida');
         }
       } else {
-        console.log('Não há disciplinas a serem removidas');
+        console.log('Não há disciplinas a serem atualizadas.');
       }
 
       console.log('');
