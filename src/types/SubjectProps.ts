@@ -2,7 +2,7 @@ export interface SubjectProps {
   id: number
   name: string
   workload: string
-  grade: number
+  description: string
   idCourse: number
   toString(): string
 }
