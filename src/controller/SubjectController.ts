@@ -12,7 +12,13 @@ export class SubjectController extends CoreController {
 
     console.clear();
     console.log(`\n------------- NOVA DISCIPLINA -------------\n`);
+    
     try {
+      if(database.courses.length === 0){
+      console.log("Não é possível cadastrar disciplina enquanto não houver um curso cadastrado.");
+        input("Pressione ENTER para continuar...");
+        return;
+      }  
       let name: string;
 
       do{
