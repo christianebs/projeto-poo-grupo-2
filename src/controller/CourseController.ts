@@ -76,7 +76,7 @@ export class CourseController extends CoreController {
     console.log(`\n------------- REMOVER CURSO -------------\n`)
     try {
       if (database.courses.length === 0) {
-        console.log("A lista de cursos está vazia.");
+        console.log("A lista de cursos está vazia. Não existe curso para ser removido.");
         console.log('');
         input("Pressione ENTER para continuar...")
         return;
