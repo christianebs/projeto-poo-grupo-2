@@ -5,19 +5,19 @@ export class Subject implements SubjectProps {
   private _id: number;
   private _name: string;
   private _workload: string;
-  private _grade: number;
+  private _description: string;
   private _idCourse: number;
 
   constructor(
     name: string,
     workload: string,
-    grade: number,
+    description: string,
     idCourse: number,
     id?: number,
   ) {
     this._id = id || database.subjects.length + 1;
     this._name = name;
-    this._grade = grade;
+    this._description = description;
     this._workload = workload;
     this._idCourse = idCourse;
   }
@@ -42,12 +42,12 @@ export class Subject implements SubjectProps {
     this._workload = value;
   }
 
-  get grade(): number {
-    return this._grade;
+  get description(): string {
+    return this._description;
   }
 
-  set grade(value: number){
-    this._grade = value;
+  set description(value: string){
+    this._description = value;
   }
 
   get idCourse(): number {
@@ -60,7 +60,7 @@ export class Subject implements SubjectProps {
     ID: ${this.id}\n
     Nome: ${this.name}\n
     Carga Horária: ${this.workload}\n
-    Nota: ${this.grade}\n
+    Descrição: ${this.description}\n
     Curso: ${course?.name}
     \n------------------------------\n
     `;
