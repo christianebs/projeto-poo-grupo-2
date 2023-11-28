@@ -17,6 +17,12 @@ export class StudentController extends CoreController {
     console.log(`\n------------- NOVO ESTUDANTE -------------\n`);
 
     try {
+      if(database.courses.length === 0 || database.subjects.length === 0){
+        console.log("Não é possível cadastrar alunos enquanto não houverem cursos e disciplinas cadastradas.");
+        input("Pressione ENTER para continuar...");
+        return;
+      }
+      
       let name = "";
       let age: number | null = null;
 
@@ -160,7 +166,7 @@ export class StudentController extends CoreController {
           console.log("ID inválida");
         }
       } else {
-        console.log("Não há estudantes a serem removidos");
+        console.log("Não há estudantes a serem atualizados");
       }
 
       console.log("");
