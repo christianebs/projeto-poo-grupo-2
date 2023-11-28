@@ -31,21 +31,17 @@ export class SubjectController extends CoreController {
         }
       } while(!workload.trim());
 
-      let grade: number = -1;
-        while (isNaN(grade) || grade < 0) {
-            const gradeInput = input("Nota: ").trim();
-            if (!gradeInput) {
-                console.log("Por favor, informe um valor válido para a nota.");
-            } else {
-                grade = Number(gradeInput);
-                if (isNaN(grade) || grade < 0) {
-                    console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para a nota.");
-                }
-            }
-        }
+      let description: string;
 
-        let course: number = -1;
-        while (isNaN(course) || course < 0) {
+      do{
+        description = input("Adicione uma descrição a desciplina: ");
+        if(!description.trim()){
+          console.log("Por favor, informe um valor válido para a descrição.");
+        }
+      } while(!description.trim());
+      
+      let course: number = -1;
+      while (isNaN(course) || course < 0) {
             const courseInput = input("Digite o ID do curso que a disciplina pertence: ").trim();
             if (!courseInput) {
                 console.log("Por favor, informe um valor válido para o ID do curso.");
@@ -57,7 +53,7 @@ export class SubjectController extends CoreController {
             }
         }
 
-      const subject = new Subject(name, workload, grade, course);
+      const subject = new Subject(name, workload, description, course);
 
       database.subjects.push(subject);
 
@@ -167,18 +163,14 @@ export class SubjectController extends CoreController {
             }
           } while(!workload.trim());
 
-          let grade: number = -1;
-            while (isNaN(grade) || grade < 0) {
-                const gradeInput = input("Nota: ").trim();
-                if (!gradeInput) {
-                    console.log("Por favor, informe um valor válido para a nota.");
-                } else {
-                    grade = Number(gradeInput);
-                    if (isNaN(grade) || grade < 0) {
-                        console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para a nota.");
-                    }
-                }
+          let description: string;
+
+          do{
+            description = input("Adicione uma descrição a desciplina: ");
+            if(!description.trim()){
+              console.log("Por favor, informe um valor válido para a descrição.");
             }
+          } while(!description.trim());
 
             let course: number = -1;
             while (isNaN(course) || course < 0) {
@@ -196,7 +188,7 @@ export class SubjectController extends CoreController {
           const subject = new Subject(
             name,
             workload,
-            grade,
+            description,
             course,
             database.subjects[subjectIndex].id,
           );
