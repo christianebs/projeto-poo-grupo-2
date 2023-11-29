@@ -1,219 +1,245 @@
-import { database } from "..";
-import { Subject } from "../models/Subject";
-import { input, inputNumber } from "../utils/prompt";
-import { CoreController } from "./CoreController";
+import { database } from ".."
+import { Subject } from "../models/Subject"
+import { input, inputNumber } from "../utils/prompt"
+import { CoreController } from "./CoreController"
 
 export class SubjectController extends CoreController {
   constructor() {
-    super('disciplina');
+    super("disciplina")
   }
 
   cadastrar(): void {
+    console.clear()
+    console.log(`\n------------- NOVA DISCIPLINA -------------\n`)
 
-    console.clear();
-    console.log(`\n------------- NOVA DISCIPLINA -------------\n`);
-    
     try {
-      if(database.courses.length === 0){
-      console.log("Não é possível cadastrar disciplina enquanto não houver um curso cadastrado.");
-        input("Pressione ENTER para continuar...");
-        return;
-      }  
-      let name: string;
+      if (database.getCurrentSize("course") === 0) {
+        console.log(
+          "Não é possível cadastrar disciplina enquanto não houver um curso cadastrado."
+        )
+        input("Pressione ENTER para continuar...")
+        return
+      }
+      let name: string
 
-      do{
-        name = input("Nome: ");
-        if(!name.trim()){
-          console.log("Por favor, informe um valor válido para o nome.");
+      do {
+        name = input("Nome: ")
+        if (!name.trim()) {
+          console.log("Por favor, informe um valor válido para o nome.")
         }
-      } while(!name.trim());
+      } while (!name.trim())
 
-      let workload: string;
+      let workload: string
 
-      do{
-        workload = input("Carga horária: ");
-        if(!workload.trim()){
-          console.log("Por favor, informe um valor válido para a carga horária.");
+      do {
+        workload = input("Carga horária: ")
+        if (!workload.trim()) {
+          console.log(
+            "Por favor, informe um valor válido para a carga horária."
+          )
         }
-      } while(!workload.trim());
+      } while (!workload.trim())
 
-      let description: string;
+      let description: string
 
-      do{
-        description = input("Adicione uma descrição a desciplina: ");
-        if(!description.trim()){
-          console.log("Por favor, informe um valor válido para a descrição.");
+      do {
+        description = input("Adicione uma descrição a desciplina: ")
+        if (!description.trim()) {
+          console.log("Por favor, informe um valor válido para a descrição.")
         }
-      } while(!description.trim());
-      
-      let course: number = -1;
+      } while (!description.trim())
+
+      console.log(
+        "-------------------- Cursos disponiveis --------------------"
+      )
+      database.get("course")
+
+      let course: number = -1
       while (isNaN(course) || course < 0) {
-            const courseInput = input("Digite o ID do curso que a disciplina pertence: ").trim();
-            if (!courseInput) {
-                console.log("Por favor, informe um valor válido para o ID do curso.");
-            } else {
-                course = Number(courseInput);
-                if (isNaN(course) || course < 0) {
-                    console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso.");
-                }
-            }
+        const courseInput = inputNumber(
+          "Digite o ID do curso que a disciplina pertence: "
+        )
+        if (!courseInput || courseInput > database.getCurrentSize("course")) {
+          console.log("Por favor, informe um valor válido para o ID do curso.")
+        } else {
+          course = Number(courseInput)
+          if (isNaN(course) || course < 0) {
+            console.log(
+              "Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso."
+            )
+          }
         }
+      }
 
-      const subject = new Subject(name, workload, description, course);
+      const subject = new Subject(name, workload, description, course)
 
-      database.subjects.push(subject);
+      database.add("subject", subject)
 
-      console.log("Disciplina adicionada com sucesso!\n");
-      input("Pressione ENTER para continuar...");
+      console.log("Disciplina adicionada com sucesso!\n")
+      input("Pressione ENTER para continuar...")
     } catch (error) {
-      console.error("Erro ao cadastrar disciplina:", error);
+      console.error("Erro ao cadastrar disciplina:", error)
     }
   }
 
   consultar(): void {
-
-    console.clear();
-    console.log(`\n------------- CONSULTAR DISCIPLINA -------------\n`);
+    console.clear()
+    console.log(`\n------------- CONSULTAR DISCIPLINA -------------\n`)
     try {
-      if (database.subjects.length > 0) {
-        database.subjects.forEach((subject) =>
-          console.log(`${subject.id}.................. ${subject.name}`)
-        );
+      if (database.getCurrentSize("subject") > 0) {
+        database.get("subject")
 
-        console.log("");
+        console.log("")
 
-        const subjectId = inputNumber("Digite o ID da disciplina que você quer consultar: ");
-        const subject = database.subjects.find((subject) => subject.id === subjectId);
+        const subjectId = inputNumber(
+          "Digite o ID da disciplina que você quer consultar: "
+        )
 
-        console.log(subject?.toString());
+        if (subjectId) {
+          const subject = database.getById("subject", subjectId)
+          console.log(subject?.toString())
+        } else {
+          console.log("ID inválida")
+        }
       } else {
-        console.log("No momento não há disciplinas a serem consultadas.");
+        console.log("No momento não há disciplinas a serem consultadas.")
       }
 
-      console.log("");
+      console.log("")
 
-      input("Pressione ENTER para continuar...");
+      input("Pressione ENTER para continuar...")
     } catch (error) {
-      console.error("Erro ao consultar disciplina:", error);
+      console.error("Erro ao consultar disciplina:", error)
     }
   }
 
   remover(): void {
-
-    console.clear();
-    console.log(`\n------------- REMOVER DISCIPLINA -------------\n`);
+    console.clear()
+    console.log(`\n------------- REMOVER DISCIPLINA -------------\n`)
     try {
-      if (database.subjects.length > 0) {
-        database.subjects.forEach((subject) =>
-          console.log(`${subject.id}.................. ${subject.name}`)
-        );
+      if (database.getCurrentSize("subject") > 0) {
+        database.get("subject")
 
-        console.log("");
-        const subjectId = inputNumber("Digite o ID da disciplina que você quer remover: ");
-        const subjectIndex = database.subjects.findIndex(
-          (subject) => subject.id === subjectId
-        );
+        console.log("")
+        const subjectId = inputNumber(
+          "Digite o ID da disciplina que você quer remover: "
+        )
+        const subjectIndex = database.getPosition("subject", subjectId)
 
         if (subjectIndex >= 0) {
-          database.subjects.splice(subjectIndex, 1);
+          database.remove("subject", subjectId)
 
-          console.log("Disciplina removida com sucesso!\n");
-          input("Pressione ENTER para continuar...");
+          console.log("Disciplina removida com sucesso!\n")
+          input("Pressione ENTER para continuar...")
         } else {
-          console.log('ID inválida');
+          console.log("ID inválida")
         }
       } else {
-        console.log("No momento não há disciplinas a serem removidas.");
+        console.log("No momento não há disciplinas a serem removidas.")
       }
 
-      console.log('');
-      input("Pressione ENTER para continuar...");
+      console.log("")
+      input("Pressione ENTER para continuar...")
     } catch (error) {
-      console.error("Erro ao remover disciplina:", error);
+      console.error("Erro ao remover disciplina:", error)
     }
   }
 
   atualizar(): void {
-
-    console.clear();
-    console.log(`\n------------- ATUALIZAR DISCIPLINA -------------\n`);
+    console.clear()
+    console.log(`\n------------- ATUALIZAR DISCIPLINA -------------\n`)
     try {
-      if (database.subjects.length > 0) {
-        database.subjects.forEach((subject) =>
-          console.log(`${subject.id}.................. ${subject.name}`)
-        );
+      if (database.getCurrentSize("subject") > 0) {
+        database.get("subject")
 
-        console.log("");
+        console.log("")
 
-        const subjectId = inputNumber("Digite o ID da disciplina que você deseja atualizar: ");
-        const subjectIndex = database.subjects.findIndex(
-          (subject) => subject.id === subjectId
-        );
+        const subjectId = inputNumber(
+          "Digite o ID da disciplina que você deseja atualizar: "
+        )
+        const subjectIndex = database.getPosition("subject", subjectId)
 
         if (subjectIndex >= 0) {
-          let name: string;
+          let name: string
 
-          do{
-            name = input("Nome: ");
-            if(!name.trim()){
-              console.log("Por favor, informe um valor válido para o nome.");
+          do {
+            name = input("Nome: ")
+            if (!name.trim()) {
+              console.log("Por favor, informe um valor válido para o nome.")
             }
-          } while(!name.trim());
+          } while (!name.trim())
 
-          let workload: string;
+          let workload: string
 
-          do{
-            workload = input("Carga horária: ");
-            if(!workload.trim()){
-              console.log("Por favor, informe um valor válido para a carga horária.");
+          do {
+            workload = input("Carga horária: ")
+            if (!workload.trim()) {
+              console.log(
+                "Por favor, informe um valor válido para a carga horária."
+              )
             }
-          } while(!workload.trim());
+          } while (!workload.trim())
 
-          let description: string;
+          let description: string
 
-          do{
-            description = input("Adicione uma descrição a desciplina: ");
-            if(!description.trim()){
-              console.log("Por favor, informe um valor válido para a descrição.");
+          do {
+            description = input("Adicione uma descrição a desciplina: ")
+            if (!description.trim()) {
+              console.log(
+                "Por favor, informe um valor válido para a descrição."
+              )
             }
-          } while(!description.trim());
+          } while (!description.trim())
 
-            let course: number = -1;
-            while (isNaN(course) || course < 0) {
-                const courseInput = input("Digite o ID do curso que a disciplina pertence: ").trim();
-                if (!courseInput) {
-                    console.log("Por favor, informe um valor válido para o ID do curso.");
-                } else {
-                    course = Number(courseInput);
-                    if (isNaN(course) || course < 0) {
-                        console.log("Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso.");
-                    }
-                }
+          console.log(
+            "-------------------- Cursos disponiveis --------------------"
+          )
+          database.get("course")
+
+          let course: number = -1
+          while (isNaN(course) || course < 0) {
+            const courseInput = inputNumber(
+              "Digite o ID do curso que a disciplina pertence: "
+            )
+            if (
+              !courseInput ||
+              courseInput > database.getCurrentSize("course")
+            ) {
+              console.log(
+                "Por favor, informe um valor válido para o ID do curso."
+              )
+            } else {
+              course = Number(courseInput)
+              if (isNaN(course) || course < 0) {
+                console.log(
+                  "Por favor, informe um valor numérico válido e maior ou igual a zero para o ID do curso."
+                )
+              }
             }
+          }
 
           const subject = new Subject(
             name,
             workload,
             description,
             course,
-            database.subjects[subjectIndex].id,
-          );
+            subjectId
+          )
 
-          database.subjects[subjectIndex] = subject;
+          database.update("subject", subject)
 
-          console.log("Disciplina atualizada com sucesso!\n");
-          input("Pressione ENTER para continuar...");
+          console.log("Disciplina atualizada com sucesso!\n")
         } else {
-          console.log('ID inválida');
+          console.log("ID inválida")
         }
       } else {
-        console.log('Não há disciplinas a serem atualizadas.');
+        console.log("Não há disciplinas a serem atualizadas.")
       }
 
-      console.log('');
-      input("Pressione ENTER para continuar...");
+      console.log("")
+      input("Pressione ENTER para continuar...")
     } catch (error) {
-      console.error("Erro ao atualizar disciplina:", error);
+      console.error("Erro ao atualizar disciplina:", error)
     }
   }
 }
