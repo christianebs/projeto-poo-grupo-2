@@ -92,7 +92,7 @@ export class CourseController extends CoreController {
 
       const courseIndex = database.getPosition("course", courseId)
 
-      console.log('');
+      console.log("")
 
       if (courseIndex >= 0) {
         database.remove("course", courseIndex)
@@ -101,8 +101,8 @@ export class CourseController extends CoreController {
         console.log("Nenhum curso encontrado com o ID fornecido.")
       }
 
-      console.log('');
-      
+      console.log("")
+
       input("Pressione ENTER para continuar...")
     } catch (error) {
       console.error("Erro ao remover curso: ", error)
@@ -131,7 +131,7 @@ export class CourseController extends CoreController {
       const courseIndex = database.getPosition("course", courseId)
       const course = database.getById("course", courseId)
 
-      if (courseIndex >= 0 && course) {
+      if (courseIndex >= 0 && course instanceof Course) {
         let name: string
         let shift: string
 
@@ -152,8 +152,8 @@ export class CourseController extends CoreController {
         const courseUpdated = new Course(
           name,
           shift,
-          course.id
-          // course.subjects
+          course.id,
+          course.subjects
         )
 
         database.update("course", courseUpdated)

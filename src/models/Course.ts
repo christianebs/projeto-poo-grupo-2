@@ -52,13 +52,28 @@ export class Course implements CourseProps {
   }
 
   toString(): string {
+    let subjects = ""
+
+    if (this._subjects.length > 0) {
+      this._subjects.forEach((subjectId, index) => {
+        const subject = database.getById("subject", subjectId)
+
+        subjects += `          ${index + 1}.................. ${
+          subject?.name
+        }\n`
+      })
+    } else {
+      subjects = "          Nenhuma disciplina cadastrada."
+    }
+
     const course = `\n------------------------------\n
     ID: ${this.id}\n
     Nome: ${this.name}\n
-    Turno: ${this.shift}
+    Turno: ${this.shift}\n
+    Disciplinas:\n\n${subjects}
     \n------------------------------\n
-    `;
+    `
 
-    return course;
+    return course
   }
 }
