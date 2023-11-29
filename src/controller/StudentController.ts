@@ -22,6 +22,7 @@ export class StudentController extends CoreController {
         console.log(
           "Não é possível cadastrar alunos enquanto não houverem cursos e disciplinas cadastradas."
         )
+        console.log('');
         input("Pressione ENTER para continuar...")
         return
       }

@@ -17,6 +17,7 @@ export class SubjectController extends CoreController {
         console.log(
           "Não é possível cadastrar disciplina enquanto não houver um curso cadastrado."
         )
+        console.log('');
         input("Pressione ENTER para continuar...")
         return
       }
@@ -46,9 +47,9 @@ export class SubjectController extends CoreController {
         description = input("Adicione uma descrição a desciplina: ")
         if (!description.trim()) {
           console.log("Por favor, informe um valor válido para a descrição.")
+          console.log('');
         }
       } while (!description.trim())
-
       console.log(
         "-------------------- Cursos disponiveis --------------------"
       )
@@ -56,11 +57,13 @@ export class SubjectController extends CoreController {
 
       let course: number = -1
       while (isNaN(course) || course < 0) {
+        console.log('');
         const courseInput = inputNumber(
           "Digite o ID do curso que a disciplina pertence: "
         )
         if (!courseInput || courseInput > database.getCurrentSize("course")) {
           console.log("Por favor, informe um valor válido para o ID do curso.")
+          console.log('')
         } else {
           course = Number(courseInput)
           if (isNaN(course) || course < 0) {
@@ -233,7 +236,7 @@ export class SubjectController extends CoreController {
           console.log("ID inválida")
         }
       } else {
-        console.log("Não há disciplinas a serem atualizadas.")
+        console.log("No momento não há disciplinas a serem atualizadas.")
       }
 
       console.log("")
