@@ -92,6 +92,8 @@ export class CourseController extends CoreController {
 
       const courseIndex = database.getPosition("course", courseId)
 
+      console.log('');
+
       if (courseIndex >= 0) {
         database.remove("course", courseIndex)
         console.log("Curso removido com sucesso!\n")
@@ -99,6 +101,8 @@ export class CourseController extends CoreController {
         console.log("Nenhum curso encontrado com o ID fornecido.")
       }
 
+      console.log('');
+      
       input("Pressione ENTER para continuar...")
     } catch (error) {
       console.error("Erro ao remover curso: ", error)
