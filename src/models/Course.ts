@@ -13,7 +13,7 @@ export class Course implements CourseProps {
     id?: number,
     subjects?: Array<number>
   ) {
-    this._id = id || database.courses.length + 1;
+    this._id = id || database.getNextId("course");
     this._name = name;
     this._shift = shift;
     this._subjects = subjects || [];
