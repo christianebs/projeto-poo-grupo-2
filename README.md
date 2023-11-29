@@ -11,15 +11,19 @@ O projeto "Gestão Acadêmica Ada Tech" é um sistema de gerenciamento acadêmic
 ## :paintbrush: Layout
 
 - Tela Principal
+  
 ![Tela-Principal-Poo](https://github.com/christianebs/projeto-poo-grupo-2/assets/108686840/5a79a2fe-5afd-42a6-98e2-9130955c5b5c)
 
 - Tela do Módulo Aluno
+  
 ![Modulo-Aluno-Poo](https://github.com/christianebs/projeto-poo-grupo-2/assets/108686840/4028d852-87a5-40ef-b294-7fa77101f9a4)
 
 - Tela do Módulo Disciplina
+  
 ![Modulo-Disciplina-Poo](https://github.com/christianebs/projeto-poo-grupo-2/assets/108686840/d176b439-45d4-4f9e-a2ca-46c78d962328)
 
 - Tela do Módulo Curso
+  
 ![Modulo-Curso-Poo](https://github.com/christianebs/projeto-poo-grupo-2/assets/108686840/1e7e1993-0ce1-40d0-90d2-0b125edd72ea)
 
 ## :triangular_flag_on_post: Contribua com o projeto
