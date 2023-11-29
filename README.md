@@ -63,7 +63,7 @@ git clone https://github.com/christianebs/projeto-poo-grupo-2/
 
 npm install
 
-# 3. Execute o servidor com nodemon para reinicialização automática
+# 3. Execute o servidor
 
 npm run start
 ```
@@ -71,7 +71,7 @@ npm run start
 Observações:
 
 - As dependências estão definidas no arquivo package.json. Ao executar **npm install**, todas elas serão instaladas 
-- O arquivo package.json já contém a configuração necessária na seção de scripts:
+- O arquivo package.json já contém a configuração necessária para iniciar o servidor que está na seção de scripts:
 
 ```shell 
 "scripts": {
@@ -80,7 +80,6 @@ Observações:
 ```
 
 - Não é necessário inicializar um novo projeto Node.js com **npm init -y**, pois ao clonar o repositório, você já terá um package.json configurado.
-
 
 ## :woman_technologist: :man_technologist: Desenvolvedores: Grupo 2
 
