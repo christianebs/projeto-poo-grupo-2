@@ -5,39 +5,37 @@ import { CoreController } from "./CoreController"
 
 export class CourseController extends CoreController {
   constructor() {
-    super("curso");
+    super("curso")
   }
 
   cadastrar(): void {
-    console.clear();
-    console.log(`\n------------- NOVO CURSO -------------\n`);
+    console.clear()
+    console.log(`\n------------- NOVO CURSO -------------\n`)
 
     try {
+      let name: string
+      let shift: string
 
-      let name: string;
-      let shift: string;
-
-      do{
-        name = input("Nome: ");
-        if(!name.trim()){
-          console.log("Por favor, forneça um nome válido para o curso.");
+      do {
+        name = input("Nome: ")
+        if (!name.trim()) {
+          console.log("Por favor, forneça um nome válido para o curso.")
         }
-      } while(!name.trim());
+      } while (!name.trim())
 
-      do{
-        shift = input("Turno: ");
-        if(!shift.trim()){
-          console.log("Por favor, forneça um nome válido para o turno.");
+      do {
+        shift = input("Turno: ")
+        if (!shift.trim()) {
+          console.log("Por favor, forneça um nome válido para o turno.")
         }
-      } while(!shift.trim());
+      } while (!shift.trim())
 
-      const course = new Course(name, shift);
-      database.courses.push(course);
+      const course = new Course(name, shift)
+      database.add("course", course)
 
-      console.log("Curso adicionado com sucesso!\n");
-
+      console.log("Curso adicionado com sucesso!\n")
     } catch (error) {
-      console.error("Erro ao cadastrar curso: ", error);
+      console.error("Erro ao cadastrar curso: ", error)
     }
     input("Pressione ENTER para continuar...")
   }
@@ -46,28 +44,30 @@ export class CourseController extends CoreController {
     console.clear()
     console.log(`\n------------- CONSULTAR CURSO -------------\n`)
     try {
-      if (database.courses.length === 0) {
-        console.log("Nenhum curso encontrado para consultar.");
-        console.log('');
+      if (database.getCurrentSize("course") === 0) {
+        console.log("Nenhum curso encontrado para consultar.")
+        console.log("")
         input("Pressione ENTER para continuar...")
-        return;
+        return
       }
 
-      database.courses.forEach((course) =>
-        console.log(`${course.id}.................. ${course.name}`)
-      )
+      database.get("course")
 
       console.log("")
 
       const courseId = inputNumber("Digite o ID do curso desejado: ")
-      const course = database.courses.find((course) => course.id === courseId)
 
-      console.log(course?.toString())
+      if (courseId) {
+        const course = database.getById("course", courseId)
+        console.log(course?.toString())
+      } else {
+        console.log("ID inválida")
+      }
     } catch (error) {
-      console.error("Erro ao consultar curso: ", error);
+      console.error("Erro ao consultar curso: ", error)
     }
 
-    console.log('');
+    console.log("")
     input("Pressione ENTER para continuar...")
   }
 
@@ -75,99 +75,93 @@ export class CourseController extends CoreController {
     console.clear()
     console.log(`\n------------- REMOVER CURSO -------------\n`)
     try {
-      if (database.courses.length === 0) {
-        console.log("A lista de cursos está vazia. Não existe curso para ser removido.");
-        console.log('');
+      if (database.getCurrentSize("course") === 0) {
+        console.log(
+          "A lista de cursos está vazia. Não existe curso para ser removido."
+        )
+        console.log("")
         input("Pressione ENTER para continuar...")
-        return;
+        return
       }
 
-      database.courses.forEach((course) =>
-        console.log(`${course.id}.................. ${course.name}`)
-      );
+      database.get("course")
 
-      console.log("");
+      console.log("")
 
-      const courseId = inputNumber("Digite o ID do curso desejado: ");
+      const courseId = inputNumber("Digite o ID do curso desejado: ")
 
-      const courseIndex = database.courses.findIndex(
-        (course) => course.id === courseId
-      );
+      const courseIndex = database.getPosition("course", courseId)
 
       if (courseIndex >= 0) {
-        database.courses.splice(courseIndex, 1);
-        console.log("Curso removido com sucesso!\n");
+        database.remove("course", courseIndex)
+        console.log("Curso removido com sucesso!\n")
       } else {
-        console.log("Nenhum curso encontrado com o ID fornecido.");
+        console.log("Nenhum curso encontrado com o ID fornecido.")
       }
 
       input("Pressione ENTER para continuar...")
     } catch (error) {
-      console.error("Erro ao remover curso: ", error);
+      console.error("Erro ao remover curso: ", error)
       input("Pressione ENTER para continuar...")
     }
-    console.log('');
+    console.log("")
   }
 
-
   atualizar(): void {
-    console.clear();
-    console.log(`\n------------- ATUALIZAR CURSO -------------\n`);
+    console.clear()
+    console.log(`\n------------- ATUALIZAR CURSO -------------\n`)
 
     try {
-      if (database.courses.length === 0) {
-        console.log("Nenhum curso encontrado para atualizar.");
-        console.log('');
+      if (database.getCurrentSize("course") === 0) {
+        console.log("Nenhum curso encontrado para atualizar.")
+        console.log("")
         input("Pressione ENTER para continuar...")
-        return;
+        return
       }
 
-      database.courses.forEach((course) =>
-        console.log(`${course.id}.................. ${course.name}`)
-      );
+      database.get("course")
 
-      console.log("");
+      console.log("")
 
-      const courseId = inputNumber("Digite o ID do curso desejado: ");
-      const courseIndex = database.courses.findIndex(
-        (course) => course.id === courseId
-      );
+      const courseId = inputNumber("Digite o ID do curso desejado: ")
+      const courseIndex = database.getPosition("course", courseId)
+      const course = database.getById("course", courseId)
 
-      if (courseIndex >= 0) {
-        let name: string;
-        let shift: string;
+      if (courseIndex >= 0 && course) {
+        let name: string
+        let shift: string
 
-        do{
-          name = input("Nome: ");
-          if(!name.trim()){
-            console.log("Por favor, forneça um nome válido para o curso.");
+        do {
+          name = input("Nome: ")
+          if (!name.trim()) {
+            console.log("Por favor, forneça um nome válido para o curso.")
           }
-        } while(!name.trim());
+        } while (!name.trim())
 
-        do{
-          shift = input("Turno: ");
-          if(!shift.trim()){
-            console.log("Por favor, forneça um nome válido para o turno.");
+        do {
+          shift = input("Turno: ")
+          if (!shift.trim()) {
+            console.log("Por favor, forneça um nome válido para o turno.")
           }
-        } while(!shift.trim());
+        } while (!shift.trim())
 
-        const course = new Course(
+        const courseUpdated = new Course(
           name,
           shift,
-          database.courses[courseIndex].id,
-          database.courses[courseIndex].subjects
-        );
+          course.id
+          // course.subjects
+        )
 
-        database.courses[courseIndex] = course;
-        console.log("Curso atualizado com sucesso!\n");
+        database.update("course", courseUpdated)
+        console.log("Curso atualizado com sucesso!\n")
       } else {
-        console.log("Nenhum curso encontrado com o ID fornecido.");
+        console.log("Nenhum curso encontrado com o ID fornecido.")
       }
     } catch (error) {
-      console.error("Erro ao atualizar curso:", error);
+      console.error("Erro ao atualizar curso:", error)
     }
 
-    console.log('');
+    console.log("")
     input("Pressione ENTER para continuar...")
   }
 }
