@@ -2,7 +2,7 @@
 
 # Gestão Acadêmica Ada Tech
 
-O projeto "Gestão Acadêmica Ada Tech" é um sistema de gerenciamento acadêmico orientado a objetos desenvolvido em TypeScript. Ele oferece uma interface de linha de comando (CLI) amigável que permite às instituições educacionais, como escolas e faculdades, gerenciar de forma eficiente informações sobre alunos, disciplinas e cursos. 
+O projeto 'Gestão Acadêmica Ada Tech' é um sistema de gerenciamento acadêmico, desenvolvido em TypeScript com base nos conceitos do Módulo 2 de Programação Orientada a Objetos do curso Vem Ser Tech - Back End. Este sistema oferece uma interface de linha de comando (CLI) amigável, permitindo às instituições educacionais, como escolas e faculdades, gerenciar de forma eficiente informações sobre alunos, disciplinas e cursos
 
 ## :woman_mechanic: Linguagens e Ferramentas
 
